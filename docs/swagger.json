@@ -1,0 +1,169 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/menu/UpdateMenu": {
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "call UpdateMenu, return ok by json.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "menuName",
+                        "name": "menuName",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "menuQuantity",
+                        "name": "menuQuantity",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "menuPrice",
+                        "name": "menuPrice",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "menuOrigin",
+                        "name": "menuOrigin",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "menuSpicy",
+                        "name": "menuSpicy",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "menuIsOrder",
+                        "name": "menuIsOrder",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Controller"
+                        }
+                    }
+                }
+            }
+        },
+        "/menu/deletetMenu": {
+            "post": {
+                "description": "DB에 menu 추가",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "call DeleteMenu, return ok by json.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "menuName",
+                        "name": "menuName",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Controller"
+                        }
+                    }
+                }
+            }
+        },
+        "/menu/insertMenu": {
+            "post": {
+                "description": "DB에 menu 추가",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "call InsertMenu, return ok by json.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "menuName",
+                        "name": "menuName",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "menuIsorder",
+                        "name": "menuIsOrder",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "menuQuantity",
+                        "name": "menuQuantity",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "menuPrice",
+                        "name": "menuPrice",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "menuOrigin",
+                        "name": "menuOrigin",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "menuSpicy",
+                        "name": "menuSpicy",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Controller"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "controller.Controller": {
+            "type": "object"
+        }
+    }
+}

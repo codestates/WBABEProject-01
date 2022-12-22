@@ -1,0 +1,113 @@
+definitions:
+  controller.Controller:
+    type: object
+info:
+  contact: {}
+paths:
+  /menu/UpdateMenu:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: menuName
+        in: formData
+        name: menuName
+        required: true
+        type: string
+      - description: menuQuantity
+        in: formData
+        name: menuQuantity
+        required: true
+        type: integer
+      - description: menuPrice
+        in: formData
+        name: menuPrice
+        required: true
+        type: string
+      - description: menuOrigin
+        in: formData
+        name: menuOrigin
+        required: true
+        type: integer
+      - description: menuSpicy
+        in: formData
+        name: menuSpicy
+        required: true
+        type: string
+      - description: menuIsOrder
+        in: formData
+        name: menuIsOrder
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Controller'
+      summary: call UpdateMenu, return ok by json.
+  /menu/deletetMenu:
+    post:
+      consumes:
+      - application/json
+      description: DB에 menu 추가
+      parameters:
+      - description: menuName
+        in: formData
+        name: menuName
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Controller'
+      summary: call DeleteMenu, return ok by json.
+  /menu/insertMenu:
+    post:
+      consumes:
+      - application/json
+      description: DB에 menu 추가
+      parameters:
+      - description: menuName
+        in: formData
+        name: menuName
+        required: true
+        type: string
+      - description: menuIsorder
+        in: formData
+        name: menuIsOrder
+        required: true
+        type: integer
+      - description: menuQuantity
+        in: formData
+        name: menuQuantity
+        required: true
+        type: string
+      - description: menuPrice
+        in: formData
+        name: menuPrice
+        required: true
+        type: string
+      - description: menuOrigin
+        in: formData
+        name: menuOrigin
+        required: true
+        type: integer
+      - description: menuSpicy
+        in: formData
+        name: menuSpicy
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Controller'
+      summary: call InsertMenu, return ok by json.
+swagger: "2.0"
