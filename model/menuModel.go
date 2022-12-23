@@ -11,8 +11,9 @@ import (
 )
 
 type Model struct {
-	client  *mongo.Client
-	colMenu *mongo.Collection
+	client   *mongo.Client
+	colMenu  *mongo.Collection
+	colOrder *mongo.Collection
 }
 type Menu struct {
 	Name      string `bson:"name"`
@@ -36,6 +37,7 @@ func NewModel() (*Model, error) {
 	} else {
 		db := r.client.Database("go-final")
 		r.colMenu = db.Collection("tMenu")
+		r.colOrder = db.Collection("tOrder")
 	}
 
 	return r, nil
@@ -54,16 +56,16 @@ func NewModel() (*Model, error) {
 // 		panic(err)
 // 	}
 
-// 	for _, result := range pers {
-// 		cursor.Decode(&result)
-// 		output, err := json.MarshalIndent(result, "", "    ")
-// 		if err != nil {
-// 			panic(err)
-// 		}
-// 		fmt.Printf("%s\n", output)
-// 	}
-// 	return pers
-// }
+//		for _, result := range pers {
+//			cursor.Decode(&result)
+//			output, err := json.MarshalIndent(result, "", "    ")
+//			if err != nil {
+//				panic(err)
+//			}
+//			fmt.Printf("%s\n", output)
+//		}
+//		return pers
+//	}
 
 func (p *Model) InsertMenu(name string, quantity, price int64, origin string, spicy int64, isorder bool) Menu {
 	newData := Menu{

@@ -71,15 +71,22 @@ func (p *Router) Idx() *gin.Engine {
 	e.GET("/swagger/:any", ginSwg.WrapHandler(swgFiles.Handler))
 	docs.SwaggerInfo.Host = "localhost:8080" //swagger 정보 등록
 
-	account := e.Group("/menu", liteAuth())
+	menu := e.Group("/menu", liteAuth())
 	{
 		fmt.Println("1")
 		// account.GET("/getPersonWithName", p.ct.GetPersonByName) // controller 패키지의 실제 처리 함수
 		// account.GET("/getPersonWithPnum", p.ct.GetPersonByPnum)
-		account.POST("/insertMenu", p.ct.InsertMenu)
-		account.PUT("/deleteMenu", p.ct.DeleteMenu)
-		account.PUT("/updateMenu", p.ct.UpdateMenu)
-		// account.GET("/getAllPerson", p.ct.GetPerson)
+		menu.POST("/insertMenu", p.ct.InsertMenu)
+		menu.PUT("/deleteMenu", p.ct.DeleteMenu)
+		menu.PUT("/updateMenu", p.ct.UpdateMenu)
+	}
+	order := e.Group("/order", liteAuth())
+	{
+		fmt.Println("2")
+		order.POST("/insertOrder", p.ct.InsertOrder)
+		order.GET("/getOrderByUser", p.ct.GetOrderByUser)
+		order.PUT("/addOrderMenu", p.ct.AddOrderMenu)
+		order.PUT("/updateOrderState", p.ct.UpdateOrderState)
 	}
 	return e
 }

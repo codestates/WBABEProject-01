@@ -47,7 +47,7 @@ func main() {
 		<-stopSig //메세지 등록
 
 		// 해당 context 타임아웃 설정, 5초후 server stop
-		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		ctx, cancel := context.WithTimeout(context.Background(), 0*time.Second)
 		defer cancel()
 		if err := mapi.Shutdown(ctx); err != nil {
 			log.Fatal("Server Shutdown:", err)
