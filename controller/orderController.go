@@ -2,47 +2,109 @@ package controller
 
 import (
 	"lecture/go-final/model"
+	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
 
-// 주문자 주문
+type MenuInfo struct {
+	Name     string `bson: "name"`
+	Quantity int64  `bson: "quantity"`
+}
+type InputUser struct {
+	Pnum    string `bson: "pnum"`
+	Address string `bson: "address"`
+}
+
+type InputOrder struct {
+	MenuInfo []MenuInfo `bson: "menuinfo"`
+	User     InputUser  `bson:	"user"`
+}
+
+type InputOrderState struct {
+	Time   string `bson: "time"`
+	Number int64  `bson:"number"`
+	State  int64  `bson: "state"`
+}
+
+// InsertOrder godoc
+// @Summary call InsertOrder, return ok by json.
+// @Description DB에 주문 추가
+// @name InsertOrder
+// @Accept  json
+// @Produce  json
+// @Param order body InputOrder true "InputOrder"
+// @Router /order/insertOrder [post]
+// @Success 200 {object} Controller
 func (p *Controller) InsertOrder(c *gin.Context) {
-	menuName := c.PostForm("menuName")
-	menuQuantity := c.PostForm("menuQuantity")
-	orderUserPnum := c.PostForm("orderUserPnum")
-	orderUserAddress := c.PostForm("orderUserAddress")
-	strQuantity, _ := strconv.ParseInt(menuQuantity, 10, 64)
+	var form model.Order
 
-	c.JSON(200, p.md.InsertOrder(model.MenuInfo{menuName, strQuantity}, model.User{orderUserPnum, orderUserAddress}))
+	t := time.Now()
+	time := strconv.Itoa(t.Year()) + "-" + strconv.Itoa(int(t.Month())) + "-" + strconv.Itoa(t.Day())
+	number := p.md.GetOrderByTime(time) + 1
+	form.State = 1
+	form.Time = time
+	form.Number = number
+	if err := c.ShouldBind(&form); err != nil {
+		c.AbortWithError(http.StatusBadRequest, err)
+		return
+	}
+	c.JSON(200, p.md.InsertOrder(form))
 }
 
-// 피주문자 주문 상태 변경
+// UpdateOrderState godoc
+// @Summary call UpdateOrderState, return ok by json.
+// @Description 주문 상태를 변경
+// @name UpdateOrderState
+// @Accept  json
+// @Produce  json
+// @Param orderstate body InputOrderState true "InputOrderState"
+// @Router /order/updateOrderState [put]
+// @Success 200 {object} Controller
 func (p *Controller) UpdateOrderState(c *gin.Context) {
-	orderTime := c.PostForm("orderTime")
-	orderCount := c.PostForm("orderCount")
-	orderState := c.PostForm("orderState")
-	strCount, _ := strconv.ParseInt(orderCount, 10, 64)
-	strState, _ := strconv.ParseInt(orderState, 10, 64)
-	c.JSON(200, p.md.UpdateOrderState(orderTime, strCount, strState))
+	var form model.Order
+	if err := c.ShouldBind(&form); err != nil {
+		c.AbortWithError(http.StatusBadRequest, err)
+		return
+	}
+	c.JSON(200, p.md.UpdateOrderState(form))
 }
 
-// 유저 주문내역 조회
+// GetOrderByUser godoc
+// @Summary call GetOrderByUser, return ok by json.
+// @Description 유저별 주문 내역 조회
+// @name GetOrderByUser
+// @Accept  json
+// @Produce  json
+// @Param user query InputUser true "InputUser"
+// @Router /order/getOrderByUser [get]
+// @Success 200 {object} Controller
 func (p *Controller) GetOrderByUser(c *gin.Context) {
-	orderUserPnum := c.Query("orderUserPnum")
-	orderUserAddress := c.Query("orderUserAddress")
+	var form model.User
+	if err := c.ShouldBind(&form); err != nil {
+		c.AbortWithError(http.StatusBadRequest, err)
+		return
+	}
+	c.JSON(200, p.md.GetOrderByUser(form))
 	//To do : 최신순 정렬
-	c.JSON(200, p.md.GetOrderByUser(model.User{orderUserPnum, orderUserAddress}))
 }
 
-// 유저 추가주문 및 주문 변경
+// AddOrderMenu godoc
+// @Summary call AddOrderMenu, return ok by json.
+// @Description 유저 추가 주문
+// @name AddOrderMenu
+// @Accept  json
+// @Produce  json
+// @Param user body InputOrder true "InputOrder"
+// @Router /order/addOrderMenu [put]
+// @Success 200 {object} Controller
 func (p *Controller) AddOrderMenu(c *gin.Context) {
-	orderUserPnum := c.PostForm("orderUserPnum")
-	orderUserAddress := c.PostForm("orderUserAddress")
-	menuName := c.PostForm("menuName")
-	menuQuantity := c.PostForm("menuQuantity")
-
-	strQuantity, _ := strconv.ParseInt(menuQuantity, 10, 64)
-	c.JSON(200, p.md.AddOrderMenu(model.User{orderUserPnum, orderUserAddress}, model.MenuInfo{menuName, strQuantity}))
+	var form model.Order
+	if err := c.ShouldBind(&form); err != nil {
+		c.AbortWithError(http.StatusBadRequest, err)
+		return
+	}
+	c.JSON(200, p.md.AddOrderMenu(form))
 }

@@ -16,57 +16,25 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/menu/UpdateMenu": {
-            "put": {
+        "/menu/deleteMenu": {
+            "delete": {
+                "description": "DB에 menu 추가",
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
                     "application/json"
                 ],
-                "summary": "call UpdateMenu, return ok by json.",
+                "summary": "call DeleteMenu, return ok by json.",
                 "parameters": [
                     {
-                        "type": "string",
                         "description": "menuName",
                         "name": "menuName",
-                        "in": "formData",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "menuQuantity",
-                        "name": "menuQuantity",
-                        "in": "formData",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "menuPrice",
-                        "name": "menuPrice",
-                        "in": "formData",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "menuOrigin",
-                        "name": "menuOrigin",
-                        "in": "formData",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "menuSpicy",
-                        "name": "menuSpicy",
-                        "in": "formData",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "menuIsOrder",
-                        "name": "menuIsOrder",
-                        "in": "formData",
-                        "required": true
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -79,25 +47,15 @@ const docTemplate = `{
                 }
             }
         },
-        "/menu/deletetMenu": {
-            "post": {
-                "description": "DB에 menu 추가",
+        "/menu/getMenu": {
+            "get": {
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
                     "application/json"
                 ],
-                "summary": "call DeleteMenu, return ok by json.",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "menuName",
-                        "name": "menuName",
-                        "in": "formData",
-                        "required": true
-                    }
-                ],
+                "summary": "call GetMenu, return ok by json.",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -110,7 +68,7 @@ const docTemplate = `{
         },
         "/menu/insertMenu": {
             "post": {
-                "description": "DB에 menu 추가",
+                "description": "DB에 menu 추가 []",
                 "consumes": [
                     "application/json"
                 ],
@@ -120,46 +78,247 @@ const docTemplate = `{
                 "summary": "call InsertMenu, return ok by json.",
                 "parameters": [
                     {
+                        "description": "menuInput",
+                        "name": "menu",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.MenuInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Controller"
+                        }
+                    }
+                }
+            }
+        },
+        "/menu/sortMenu": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "call SortMenu, return ok by json.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Controller"
+                        }
+                    }
+                }
+            }
+        },
+        "/menu/updateMenu": {
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "call UpdateMenu, return ok by json.",
+                "parameters": [
+                    {
+                        "description": "menuInput",
+                        "name": "menu",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.MenuInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Controller"
+                        }
+                    }
+                }
+            }
+        },
+        "/order/addOrderMenu": {
+            "put": {
+                "description": "유저 추가 주문",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "call AddOrderMenu, return ok by json.",
+                "parameters": [
+                    {
+                        "description": "InputOrder",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.InputOrder"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Controller"
+                        }
+                    }
+                }
+            }
+        },
+        "/order/getOrderByUser": {
+            "get": {
+                "description": "유저별 주문 내역 조회",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "call GetOrderByUser, return ok by json.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "address",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "pnum",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Controller"
+                        }
+                    }
+                }
+            }
+        },
+        "/order/insertOrder": {
+            "post": {
+                "description": "DB에 주문 추가",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "call InsertOrder, return ok by json.",
+                "parameters": [
+                    {
+                        "description": "InputOrder",
+                        "name": "order",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.InputOrder"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Controller"
+                        }
+                    }
+                }
+            }
+        },
+        "/order/updateOrderState": {
+            "put": {
+                "description": "주문 상태를 변경",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "call UpdateOrderState, return ok by json.",
+                "parameters": [
+                    {
+                        "description": "InputOrderState",
+                        "name": "orderstate",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.InputOrderState"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Controller"
+                        }
+                    }
+                }
+            }
+        },
+        "/review/getReview": {
+            "get": {
+                "description": "해당 메뉴의 평균 평점과 리뷰를 조회",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "call GetReviewWithMenu, return ok by json.",
+                "parameters": [
+                    {
                         "type": "string",
                         "description": "menuName",
-                        "name": "menuName",
-                        "in": "formData",
+                        "name": "menuname",
+                        "in": "query",
                         "required": true
-                    },
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Controller"
+                        }
+                    }
+                }
+            }
+        },
+        "/review/writeReview": {
+            "put": {
+                "description": "메뉴의 평점 및 리뷰를 남김",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "call UpdateMenuGrade, return ok by json.",
+                "parameters": [
                     {
-                        "type": "integer",
-                        "description": "menuIsorder",
-                        "name": "menuIsOrder",
-                        "in": "formData",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "menuQuantity",
-                        "name": "menuQuantity",
-                        "in": "formData",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "menuPrice",
-                        "name": "menuPrice",
-                        "in": "formData",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "menuOrigin",
-                        "name": "menuOrigin",
-                        "in": "formData",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "menuSpicy",
-                        "name": "menuSpicy",
-                        "in": "formData",
-                        "required": true
+                        "description": "InputGrade",
+                        "name": "review",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.InputGrade"
+                        }
                     }
                 ],
                 "responses": {
@@ -176,6 +335,116 @@ const docTemplate = `{
     "definitions": {
         "controller.Controller": {
             "type": "object"
+        },
+        "controller.InputGrade": {
+            "type": "object",
+            "properties": {
+                "grade": {
+                    "type": "integer"
+                },
+                "menuName": {
+                    "type": "string"
+                },
+                "orderNumber": {
+                    "type": "integer"
+                },
+                "orderTime": {
+                    "type": "string"
+                },
+                "review": {
+                    "type": "string"
+                },
+                "user": {
+                    "$ref": "#/definitions/model.User"
+                }
+            }
+        },
+        "controller.InputOrder": {
+            "type": "object",
+            "properties": {
+                "menuInfo": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/controller.MenuInfo"
+                    }
+                },
+                "user": {
+                    "$ref": "#/definitions/controller.InputUser"
+                }
+            }
+        },
+        "controller.InputOrderState": {
+            "type": "object",
+            "properties": {
+                "number": {
+                    "type": "integer"
+                },
+                "state": {
+                    "type": "integer"
+                },
+                "time": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.InputUser": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "pnum": {
+                    "type": "string"
+                }
+            }
+        },
+        "controller.MenuInfo": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "quantity": {
+                    "type": "integer"
+                }
+            }
+        },
+        "controller.MenuInput": {
+            "type": "object",
+            "properties": {
+                "isOrder": {
+                    "type": "boolean"
+                },
+                "isVisible": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "origin": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "quantity": {
+                    "type": "integer"
+                },
+                "spicy": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.User": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "pnum": {
+                    "type": "string"
+                }
+            }
         }
     }
 }`
