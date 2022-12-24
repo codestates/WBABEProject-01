@@ -2,10 +2,20 @@ package controller
 
 import (
 	"lecture/go-final/model"
-	"strconv"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
+
+type MenuInput struct {
+	Name      string `bson:"name" `
+	IsOrder   bool   `bson:"isorder" `
+	Quantity  int64  `bson:"quantity"`
+	Price     int64  `bson:"price"`
+	Origin    string `bson:"origin"`
+	Spicy     int64  `bson:"spicy"`
+	IsVisible bool   `bson:"isvisible"`
+}
 
 type Controller struct {
 	md *model.Model
@@ -18,44 +28,38 @@ func NewCTL(rep *model.Model) (*Controller, error) {
 
 // InsertMenu godoc
 // @Summary call InsertMenu, return ok by json.
-// @Description DB에 menu 추가
+// @Description DB에 menu 추가 []
 // @name InsertMenu
 // @Accept  json
 // @Produce  json
-// @Param menuName formData string true "menuName"
-// @Param menuIsOrder formData int true "menuIsorder"
-// @Param menuQuantity formData string true "menuQuantity"
-// @Param menuPrice formData string true "menuPrice"
-// @Param menuOrigin formData int true "menuOrigin"
-// @Param menuSpicy formData string true "menuSpicy"
+// @Param menu body MenuInput true "menuInput"
 // @Router /menu/insertMenu [post]
 // @Success 200 {object} Controller
 func (p *Controller) InsertMenu(c *gin.Context) {
-	menuName := c.PostForm("menuName")         //string
-	menuIsOrder := c.PostForm("menuIsOrder")   //bool
-	menuQuantity := c.PostForm("menuQuantity") //int
-	menuPrice := c.PostForm("menuPrice")       //int
-	menuOrigin := c.PostForm("menuOrigin")     //string
-	menuSpicy := c.PostForm("menuSpicy")       //int
-	str_menuSpicy, _ := strconv.ParseInt(menuSpicy, 10, 64)
-	str_menuPrice, _ := strconv.ParseInt(menuPrice, 10, 64)
-	str_menuIsOrder, _ := strconv.ParseBool(menuIsOrder)
-	str_menuQuantity, _ := strconv.ParseInt(menuQuantity, 10, 64)
-	c.JSON(200, p.md.InsertMenu(menuName, str_menuQuantity, str_menuPrice, menuOrigin, str_menuSpicy, str_menuIsOrder))
+	var form model.Menu
+	if err := c.ShouldBind(&form); err != nil {
+		c.AbortWithError(http.StatusBadRequest, err)
+		return
+	}
+	c.JSON(200, p.md.InsertMenu(form))
 }
 
-// InsertMenu godoc
+// DeleteMenu godoc
 // @Summary call DeleteMenu, return ok by json.
 // @Description DB에 menu 추가
 // @name InsertMenu
 // @Accept  json
 // @Produce  json
-// @Param menuName formData string true "menuName"
-// @Router /menu/deletetMenu [put]
+// @Param menuName body string true "menuName"
+// @Router /menu/deleteMenu [delete]
 // @Success 200 {object} Controller
 func (p *Controller) DeleteMenu(c *gin.Context) {
-	menuName := c.PostForm("menuName")
-	c.JSON(200, gin.H{"DeletedCount : ": p.md.DeleteMenu(menuName)})
+	var form string
+	if err := c.ShouldBind(&form); err != nil {
+		c.AbortWithError(http.StatusBadRequest, err)
+		return
+	}
+	c.JSON(200, gin.H{"DeletedCount : ": p.md.DeleteMenu(form)})
 }
 
 // UpdateMenu godoc
@@ -64,25 +68,38 @@ func (p *Controller) DeleteMenu(c *gin.Context) {
 // @name UpdateMenu
 // @Accept  json
 // @Produce  json
-// @Param menuName formData string true "menuName"
-// @Param menuQuantity formData int true "menuQuantity"
-// @Param menuPrice formData string true "menuPrice"
-// @Param menuOrigin formData int true "menuOrigin"
-// @Param menuSpicy formData string true "menuSpicy"
-// @Param menuIsOrder formData int true "menuIsOrder"
-// @Router /menu/UpdateMenu [put]
+// @Param menu body MenuInput true "menuInput"
+// @Router /menu/updateMenu [put]
 // @Success 200 {object} Controller
 func (p *Controller) UpdateMenu(c *gin.Context) {
-	menuName := c.PostForm("menuName")         //string
-	menuIsOrder := c.PostForm("menuIsOrder")   //bool
-	menuQuantity := c.PostForm("menuQuantity") //int
-	menuPrice := c.PostForm("menuPrice")       //int
-	menuOrigin := c.PostForm("menuOrigin")     //string
-	menuSpicy := c.PostForm("menuSpicy")       //int
+	var form model.Menu
+	if err := c.ShouldBind(&form); err != nil {
+		c.AbortWithError(http.StatusBadRequest, err)
+		return
+	}
+	c.JSON(200, gin.H{"UpdatedCount : ": p.md.UpdateMenu(form)})
+}
 
-	str_menuSpicy, _ := strconv.ParseInt(menuSpicy, 10, 64)
-	str_menuPrice, _ := strconv.ParseInt(menuPrice, 10, 64)
-	str_menuIsOrder, _ := strconv.ParseBool(menuIsOrder)
-	str_menuQuantity, _ := strconv.ParseInt(menuQuantity, 10, 64)
-	c.JSON(200, gin.H{"UpdatedCount : ": p.md.UpdateMenu(menuName, str_menuQuantity, str_menuPrice, menuOrigin, str_menuSpicy, str_menuIsOrder)})
+// GetMenu godoc
+// @Summary call GetMenu, return ok by json.
+// @MenuName으로 조회 후, 다른 필드들 값을 업데이트
+// @name GetMenu
+// @Accept  json
+// @Produce  json
+// @Router /menu/getMenu [get]
+// @Success 200 {object} Controller
+func (p *Controller) GetMenu(c *gin.Context) {
+	c.JSON(200, p.md.GetMenu())
+}
+
+// GetMenu godoc
+// @Summary call SortMenu, return ok by json.
+// @MenuName으로 조회 후, 다른 필드들 값을 업데이트
+// @name SortMenu
+// @Accept  json
+// @Produce  json
+// @Router /menu/sortMenu [get]
+// @Success 200 {object} Controller
+func (p *Controller) SortMenu(c *gin.Context) {
+	c.JSON(200, p.md.SortMenu())
 }

@@ -1,63 +1,92 @@
 definitions:
   controller.Controller:
     type: object
+  controller.InputGrade:
+    properties:
+      grade:
+        type: integer
+      menuName:
+        type: string
+      orderNumber:
+        type: integer
+      orderTime:
+        type: string
+      review:
+        type: string
+      user:
+        $ref: '#/definitions/model.User'
+    type: object
+  controller.InputOrder:
+    properties:
+      menuInfo:
+        items:
+          $ref: '#/definitions/controller.MenuInfo'
+        type: array
+      user:
+        $ref: '#/definitions/controller.InputUser'
+    type: object
+  controller.InputOrderState:
+    properties:
+      number:
+        type: integer
+      state:
+        type: integer
+      time:
+        type: string
+    type: object
+  controller.InputUser:
+    properties:
+      address:
+        type: string
+      pnum:
+        type: string
+    type: object
+  controller.MenuInfo:
+    properties:
+      name:
+        type: string
+      quantity:
+        type: integer
+    type: object
+  controller.MenuInput:
+    properties:
+      isOrder:
+        type: boolean
+      isVisible:
+        type: boolean
+      name:
+        type: string
+      origin:
+        type: string
+      price:
+        type: integer
+      quantity:
+        type: integer
+      spicy:
+        type: integer
+    type: object
+  model.User:
+    properties:
+      address:
+        type: string
+      pnum:
+        type: string
+    type: object
 info:
   contact: {}
 paths:
-  /menu/UpdateMenu:
-    put:
-      consumes:
-      - application/json
-      parameters:
-      - description: menuName
-        in: formData
-        name: menuName
-        required: true
-        type: string
-      - description: menuQuantity
-        in: formData
-        name: menuQuantity
-        required: true
-        type: integer
-      - description: menuPrice
-        in: formData
-        name: menuPrice
-        required: true
-        type: string
-      - description: menuOrigin
-        in: formData
-        name: menuOrigin
-        required: true
-        type: integer
-      - description: menuSpicy
-        in: formData
-        name: menuSpicy
-        required: true
-        type: string
-      - description: menuIsOrder
-        in: formData
-        name: menuIsOrder
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/controller.Controller'
-      summary: call UpdateMenu, return ok by json.
-  /menu/deletetMenu:
-    post:
+  /menu/deleteMenu:
+    delete:
       consumes:
       - application/json
       description: DB에 menu 추가
       parameters:
       - description: menuName
-        in: formData
+        in: body
         name: menuName
         required: true
-        type: string
+        schema:
+          type: string
       produces:
       - application/json
       responses:
@@ -66,40 +95,158 @@ paths:
           schema:
             $ref: '#/definitions/controller.Controller'
       summary: call DeleteMenu, return ok by json.
+  /menu/getMenu:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Controller'
+      summary: call GetMenu, return ok by json.
   /menu/insertMenu:
     post:
       consumes:
       - application/json
-      description: DB에 menu 추가
+      description: DB에 menu 추가 []
+      parameters:
+      - description: menuInput
+        in: body
+        name: menu
+        required: true
+        schema:
+          $ref: '#/definitions/controller.MenuInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Controller'
+      summary: call InsertMenu, return ok by json.
+  /menu/sortMenu:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Controller'
+      summary: call SortMenu, return ok by json.
+  /menu/updateMenu:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: menuInput
+        in: body
+        name: menu
+        required: true
+        schema:
+          $ref: '#/definitions/controller.MenuInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Controller'
+      summary: call UpdateMenu, return ok by json.
+  /order/addOrderMenu:
+    put:
+      consumes:
+      - application/json
+      description: 유저 추가 주문
+      parameters:
+      - description: InputOrder
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/controller.InputOrder'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Controller'
+      summary: call AddOrderMenu, return ok by json.
+  /order/getOrderByUser:
+    get:
+      consumes:
+      - application/json
+      description: 유저별 주문 내역 조회
+      parameters:
+      - in: query
+        name: address
+        type: string
+      - in: query
+        name: pnum
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Controller'
+      summary: call GetOrderByUser, return ok by json.
+  /order/insertOrder:
+    post:
+      consumes:
+      - application/json
+      description: DB에 주문 추가
+      parameters:
+      - description: InputOrder
+        in: body
+        name: order
+        required: true
+        schema:
+          $ref: '#/definitions/controller.InputOrder'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Controller'
+      summary: call InsertOrder, return ok by json.
+  /order/updateOrderState:
+    put:
+      consumes:
+      - application/json
+      description: 주문 상태를 변경
+      parameters:
+      - description: InputOrderState
+        in: body
+        name: orderstate
+        required: true
+        schema:
+          $ref: '#/definitions/controller.InputOrderState'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Controller'
+      summary: call UpdateOrderState, return ok by json.
+  /review/getReview:
+    get:
+      consumes:
+      - application/json
+      description: 해당 메뉴의 평균 평점과 리뷰를 조회
       parameters:
       - description: menuName
-        in: formData
-        name: menuName
-        required: true
-        type: string
-      - description: menuIsorder
-        in: formData
-        name: menuIsOrder
-        required: true
-        type: integer
-      - description: menuQuantity
-        in: formData
-        name: menuQuantity
-        required: true
-        type: string
-      - description: menuPrice
-        in: formData
-        name: menuPrice
-        required: true
-        type: string
-      - description: menuOrigin
-        in: formData
-        name: menuOrigin
-        required: true
-        type: integer
-      - description: menuSpicy
-        in: formData
-        name: menuSpicy
+        in: query
+        name: menuname
         required: true
         type: string
       produces:
@@ -109,5 +256,25 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/controller.Controller'
-      summary: call InsertMenu, return ok by json.
+      summary: call GetReviewWithMenu, return ok by json.
+  /review/writeReview:
+    put:
+      consumes:
+      - application/json
+      description: 메뉴의 평점 및 리뷰를 남김
+      parameters:
+      - description: InputGrade
+        in: body
+        name: review
+        required: true
+        schema:
+          $ref: '#/definitions/controller.InputGrade'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Controller'
+      summary: call UpdateMenuGrade, return ok by json.
 swagger: "2.0"

@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"sort"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -11,13 +12,14 @@ import (
 )
 
 type Model struct {
-	client   *mongo.Client
-	colMenu  *mongo.Collection
-	colOrder *mongo.Collection
+	client    *mongo.Client
+	colMenu   *mongo.Collection
+	colOrder  *mongo.Collection
+	colReview *mongo.Collection
 }
 type Menu struct {
-	Name      string `bson:"name"`
-	IsOrder   bool   `bson:"isOrder"`
+	Name      string `bson:"name" `
+	IsOrder   bool   `bson:"isorder" `
 	Quantity  int64  `bson:"quantity"`
 	Price     int64  `bson:"price"`
 	Origin    string `bson:"origin"`
@@ -38,43 +40,20 @@ func NewModel() (*Model, error) {
 		db := r.client.Database("go-final")
 		r.colMenu = db.Collection("tMenu")
 		r.colOrder = db.Collection("tOrder")
+		r.colReview = db.Collection("tReview")
 	}
 
 	return r, nil
 }
 
-// func (p *Model) GetMenuByName(name string) []Menu {
-// 	filter := bson.D{{"name", name}}
-// 	cursor, err := p.colMenu.Find(context.TODO(), filter)
-// 	if err != nil {
-// 		panic(err)
-// 	}
-
-// 	var pers []Menu
-
-// 	if err = cursor.All(context.TODO(), &pers); err != nil {
-// 		panic(err)
-// 	}
-
-//		for _, result := range pers {
-//			cursor.Decode(&result)
-//			output, err := json.MarshalIndent(result, "", "    ")
-//			if err != nil {
-//				panic(err)
-//			}
-//			fmt.Printf("%s\n", output)
-//		}
-//		return pers
-//	}
-
-func (p *Model) InsertMenu(name string, quantity, price int64, origin string, spicy int64, isorder bool) Menu {
+func (p *Model) InsertMenu(menu Menu) Menu {
 	newData := Menu{
-		Name:      name,
-		IsOrder:   isorder,
-		Quantity:  quantity,
-		Price:     price,
-		Origin:    origin,
-		Spicy:     spicy,
+		Name:      menu.Name,
+		IsOrder:   menu.IsOrder,
+		Quantity:  menu.Quantity,
+		Price:     menu.Price,
+		Origin:    menu.Origin,
+		Spicy:     menu.Spicy,
 		IsVisible: true,
 	}
 	_, err := p.colMenu.InsertOne(context.TODO(), newData)
@@ -89,7 +68,7 @@ func (p *Model) DeleteMenu(menuName string) int64 {
 	filter := bson.D{{Key: "name", Value: menuName}}
 	field := bson.M{
 		"$set": bson.M{
-			"isVisible": false,
+			"isvisible": false,
 		},
 	}
 	cursor, err := p.colMenu.UpdateOne(context.TODO(), filter, field)
@@ -99,16 +78,17 @@ func (p *Model) DeleteMenu(menuName string) int64 {
 	return cursor.MatchedCount
 }
 
-func (p *Model) UpdateMenu(name string, quantity, price int64, origin string, spicy int64, isorder bool) int64 {
-	filter := bson.D{{Key: "name", Value: name}}
+func (p *Model) UpdateMenu(menu Menu) int64 {
+	filter := bson.D{{Key: "name", Value: menu.Name}}
 	field := bson.M{
 		"$set": bson.M{
-			"name":     name,
-			"quantity": quantity,
-			"price":    price,
-			"origin":   origin,
-			"spicy":    spicy,
-			"isOrder":  isorder,
+			"name":      menu.Name,
+			"quantity":  menu.Quantity,
+			"price":     menu.Price,
+			"origin":    menu.Origin,
+			"spicy":     menu.Spicy,
+			"isorder":   menu.IsOrder,
+			"isvisible": menu.IsVisible,
 		},
 	}
 	cursor, err := p.colMenu.UpdateOne(context.TODO(), filter, field)
@@ -125,13 +105,13 @@ func (p *Model) GetMenu() []Menu {
 		panic(err)
 	}
 
-	var pers []Menu
+	var menus []Menu
 
-	if err = cursor.All(context.TODO(), &pers); err != nil {
+	if err = cursor.All(context.TODO(), &menus); err != nil {
 		panic(err)
 	}
 
-	for _, result := range pers {
+	for _, result := range menus {
 		cursor.Decode(&result)
 		output, err := json.MarshalIndent(result, "", "    ")
 		if err != nil {
@@ -139,5 +119,19 @@ func (p *Model) GetMenu() []Menu {
 		}
 		fmt.Printf("%s\n", output)
 	}
-	return pers
+	return menus
+}
+
+func (p *Model) SortMenu() []interface{} {
+	menus := p.GetMenu()
+	array := []interface{}{}
+	for _, menu := range menus {
+		array = append(array, []interface{}{p.GetReviewWithMenu(menu.Name).Grade, menu.Name})
+	}
+	sort.Slice(array, func(i, j int) bool {
+		firstElementI, _ := array[i].([]interface{})[0].(int)
+		firstElementJ, _ := array[j].([]interface{})[0].(int)
+		return firstElementI > firstElementJ
+	})
+	return array
 }

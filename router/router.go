@@ -74,11 +74,11 @@ func (p *Router) Idx() *gin.Engine {
 	menu := e.Group("/menu", liteAuth())
 	{
 		fmt.Println("1")
-		// account.GET("/getPersonWithName", p.ct.GetPersonByName) // controller 패키지의 실제 처리 함수
-		// account.GET("/getPersonWithPnum", p.ct.GetPersonByPnum)
+		menu.GET("/getMenu", p.ct.GetMenu)
 		menu.POST("/insertMenu", p.ct.InsertMenu)
-		menu.PUT("/deleteMenu", p.ct.DeleteMenu)
+		menu.DELETE("/deleteMenu", p.ct.DeleteMenu)
 		menu.PUT("/updateMenu", p.ct.UpdateMenu)
+		menu.GET("/sortMenu", p.ct.SortMenu)
 	}
 	order := e.Group("/order", liteAuth())
 	{
@@ -87,6 +87,11 @@ func (p *Router) Idx() *gin.Engine {
 		order.GET("/getOrderByUser", p.ct.GetOrderByUser)
 		order.PUT("/addOrderMenu", p.ct.AddOrderMenu)
 		order.PUT("/updateOrderState", p.ct.UpdateOrderState)
+	}
+	review := e.Group("/review", liteAuth())
+	{
+		review.PUT("/writeReview", p.ct.UpdateMenuGrade)
+		review.GET("/getReview", p.ct.GetReviewWithMenu)
 	}
 	return e
 }
