@@ -52,8 +52,6 @@ go run main.go
 
 ### API 테스트
 
-# 제목 없음
-
 해당 메뉴 정보를 가지고 DB에 메뉴 정보를 등록한다
 
 ![Untitled](https://user-images.githubusercontent.com/71590785/209467971-549731f6-8bd0-4d1a-baf6-0fb0e800dc43.png)
