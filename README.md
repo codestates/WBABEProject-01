@@ -1,7 +1,9 @@
 # WBABEProject-01
 
-#기술 스택
+# 기술 스택
 golang, go version go1.18.1 linux/amd64
+
+DB : mongoDB
 
 # 프로젝트 이름
 
