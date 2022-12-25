@@ -140,3 +140,24 @@ writeReview
 
 ![Untitled 10](https://user-images.githubusercontent.com/71590785/209468085-59f737d4-2fea-4ab9-92d3-6684577085c1.png)
 
+# DB 설계
+
+## DB구조
+
+### DB는 tMenu, tOrder, tReview 테이블로 나눠서 구성했다
+![db4](https://user-images.githubusercontent.com/71590785/209468436-d45a535d-9f91-4185-afd8-0f7201f23a44.PNG)
+
+tMenu
+![db1](https://user-images.githubusercontent.com/71590785/209468202-ee281e8c-92db-4b70-9e34-4de45b020956.PNG)
+
+tMenu 테이블은 메뉴의 정보가 들어가 있는 테이블로 메뉴 이름, 가격, 수량, 맵기 정도, 원산지, 주문 가능여부, 메뉴판 보임 여부 필드가 들어가 있다
+
+tOrder
+![db2](https://user-images.githubusercontent.com/71590785/209468275-f7c0b415-1302-4431-bec2-b83e25ff22cb.PNG)
+
+tOrder 테이블에는 주문의 정보가 들어가 있는 테이블로 메뉴정보, 주문 시간 및 주문 번호, 주문 상태, 유저 정보 필드가 들어가 있다. 유저 정보는 핸드폰 번호, 주소 구조체로 작성하고 있다
+
+tReview
+![db3](https://user-images.githubusercontent.com/71590785/209468364-b7ec65b6-434e-4389-a738-edac00e1cf5f.PNG)
+
+tReview 테이블에는 리뷰 정보가 들어가 있는 테이블로 유저 정보 및 주문을 구분하기 위한 주문 시간 및 번호, 메뉴 이름, 평점 과 리뷰 필드가 들어가 있다 
