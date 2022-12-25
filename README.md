@@ -56,7 +56,7 @@ go run main.go
 
 해당 메뉴 정보를 가지고 DB에 메뉴 정보를 등록한다
 
-![Untitled](%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%2049730e0f663343529699e962a6d0da17/Untitled.png)
+![Untitled](https://user-images.githubusercontent.com/71590785/209467971-549731f6-8bd0-4d1a-baf6-0fb0e800dc43.png)
 
 updateMenu - 피주문자
 
@@ -64,7 +64,7 @@ updateMenu - 피주문자
 
 해당 메뉴정보를 가진 메뉴를 DB에서 찾고 메뉴 정보를 변경한다
 
-![Untitled](%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%2049730e0f663343529699e962a6d0da17/Untitled%201.png)
+![Untitled 1](https://user-images.githubusercontent.com/71590785/209468018-2517162f-c051-4dce-8b17-9884413f0022.png)
 
 deleteMenu - 피주문자
 
@@ -72,7 +72,7 @@ deleteMenu - 피주문자
 
 해당 메뉴이름을 메뉴DB에서 지운다 ( 뷰 플래그를 활용해 isVisible 값을 false로 변경 )
 
-![Untitled](%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%2049730e0f663343529699e962a6d0da17/Untitled%202.png)
+![Untitled 2](https://user-images.githubusercontent.com/71590785/209468033-7f496c8d-9c9e-49ae-9519-f7729802b962.png)
 
 getMenu - 주문자
 
@@ -80,7 +80,7 @@ getMenu - 주문자
 
 메뉴DB에 들어 있는 모든 메뉴 정보를 조회한다
 
-![Untitled](%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%2049730e0f663343529699e962a6d0da17/Untitled%203.png)
+![Untitled 3](https://user-images.githubusercontent.com/71590785/209468037-f254aa77-9011-4c70-8430-d557301bcfc8.png)
 
 sortMenu - 주문자
 
@@ -88,7 +88,7 @@ sortMenu - 주문자
 
 메뉴 정보에 들어 있는 메뉴들을 평점 순으로 정렬해 조회한다.
 
-![Untitled](%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%2049730e0f663343529699e962a6d0da17/Untitled%204.png)
+![Untitled 4](https://user-images.githubusercontent.com/71590785/209468046-eff735e1-34e2-40bb-a818-a6ff7f753855.png)
 
 Order
 
@@ -98,7 +98,7 @@ insertOrder - 주문자
 
 해당 유저 정보와 메뉴 정보를 가지고 주문DB에 주문을 추가한다
 
-![Untitled](%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%2049730e0f663343529699e962a6d0da17/Untitled%205.png)
+![Untitled 5](https://user-images.githubusercontent.com/71590785/209468049-6be73e8c-2f02-4972-9200-a23c5bf028ac.png)
 
 updateOrderState - 피주문자
 
@@ -106,7 +106,7 @@ updateOrderState - 피주문자
 
 주문 시간과 주문 번호(Unique value)에 해당하는 주문을 찾고 주문 상태를 변경한다
 
-![Untitled](%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%2049730e0f663343529699e962a6d0da17/Untitled%206.png)
+![Untitled 6](https://user-images.githubusercontent.com/71590785/209468057-c379203a-97ec-4d7e-adcd-746aba34cfc3.png)
 
 addOrderMenu - 주문자
 
@@ -114,7 +114,7 @@ addOrderMenu - 주문자
 
 해당 유저의 주문이 아직 배달 직전이라면 주문에 해당 주문 메뉴를 추가하고 배달 이후라면 새로운 주문을 만든다
 
-![Untitled](%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%2049730e0f663343529699e962a6d0da17/Untitled%207.png)
+![Untitled 7](https://user-images.githubusercontent.com/71590785/209468061-ed2b2eff-11db-4abf-8e6f-1ea2b538588f.png)
 
 getOrderByUser - 주문자
 
@@ -122,7 +122,7 @@ getOrderByUser - 주문자
 
 해당 유저의 모든 주문 내역을 조회한다
 
-![Untitled](%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%2049730e0f663343529699e962a6d0da17/Untitled%208.png)
+![Untitled 8](https://user-images.githubusercontent.com/71590785/209468072-df2abada-a3f6-4f7a-a4cc-c97e5ebd3274.png)
 
 Review
 
@@ -132,7 +132,7 @@ getReview - 주문자
 
 해당 메뉴의 모든 리뷰와 평균 평점을 조회한다.
 
-![Untitled](%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%2049730e0f663343529699e962a6d0da17/Untitled%209.png)
+![Untitled 9](https://user-images.githubusercontent.com/71590785/209468078-5e40c915-573b-4302-ad4d-7a6fb3d05307.png)
 
 writeReview
 
@@ -140,5 +140,5 @@ writeReview
 
 해당 유저 주문한 주문들 중 특정 주문의 메뉴 내용에 관해서 평점과 리뷰 내용을 작성한다
 
-![Untitled](%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%2049730e0f663343529699e962a6d0da17/Untitled%2010.png)
+![Untitled 10](https://user-images.githubusercontent.com/71590785/209468085-59f737d4-2fea-4ab9-92d3-6684577085c1.png)
 
