@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"lecture/go-final/config"
 	"sort"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -27,11 +28,11 @@ type Menu struct {
 	IsVisible bool   `bson:"isvisible"`
 }
 
-func NewModel() (*Model, error) {
+func NewModel(config *config.Config) (*Model, error) {
 	r := &Model{}
 
 	var err error
-	mgUrl := "mongodb://127.0.0.1:27017"
+	mgUrl := fmt.Sprintf("%v", config.DB["admin"]["host"])
 	if r.client, err = mongo.Connect(context.Background(), options.Client().ApplyURI(mgUrl)); err != nil {
 		return nil, err
 	} else if err := r.client.Ping(context.Background(), nil); err != nil {
