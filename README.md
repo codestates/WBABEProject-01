@@ -1,5 +1,8 @@
 # WBABEProject-01
 
+#기술 스택
+golang, go version go1.18.1 linux/amd64
+
 # 프로젝트 이름
 
 띵동주문이요, 온라인 주문 시스템(Online Ordering System)
