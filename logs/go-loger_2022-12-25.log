@@ -12,3 +12,8 @@
 {"level":"INFO","time":"2022-12-25T15:32:54.586+0900","caller":"logger/logger.go:62","msg":"info","-":"timeout of 1 seconds."}
 {"level":"INFO","time":"2022-12-25T15:32:54.587+0900","caller":"logger/logger.go:62","msg":"info","-":"Server exiting"}
 {"level":"ERROR","time":"2022-12-25T15:32:54.587+0900","caller":"logger/logger.go:80","msg":"error","-":"http: Server closed"}
+{"level":"DEBUG","time":"2022-12-25T20:34:44.090+0900","caller":"logger/logger.go:53","msg":"debug","-":"ready server.... "}
+{"level":"WARN","time":"2022-12-25T21:26:03.407+0900","caller":"logger/logger.go:71","msg":"warn","-":"Shutdown Server ..."}
+{"level":"INFO","time":"2022-12-25T21:26:04.408+0900","caller":"logger/logger.go:62","msg":"info","-":"timeout of 1 seconds."}
+{"level":"INFO","time":"2022-12-25T21:26:04.408+0900","caller":"logger/logger.go:62","msg":"info","-":"Server exiting"}
+{"level":"ERROR","time":"2022-12-25T21:26:04.409+0900","caller":"logger/logger.go:80","msg":"error","-":"http: Server closed"}
