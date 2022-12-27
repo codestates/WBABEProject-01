@@ -2,6 +2,7 @@ package model
 
 import (
 	"context"
+	"fmt"
 
 	"go.mongodb.org/mongo-driver/bson"
 )
@@ -59,7 +60,7 @@ func (p *Model) UpdateMenuGrade(review Review) bool {
 }
 
 func (p *Model) GetReviewWithMenu(menuName string) userReview {
-	count := 1
+	count := 0
 	var totalGrade int64 = 0
 	filter := bson.D{{"name", menuName}, {"grade", bson.D{{"$gt", 0}}}}
 	cursor, err := p.colReview.Find(context.TODO(), filter)
@@ -73,6 +74,12 @@ func (p *Model) GetReviewWithMenu(menuName string) userReview {
 		userReview.Review = append(userReview.Review, review.Review)
 		count += 1
 	}
-	userReview.Grade = totalGrade / int64(count)
+	if count != 0 {
+		userReview.Grade = totalGrade / int64(count)
+	} else {
+		userReview = userReview
+		return userReview
+	}
+	fmt.Println(userReview.Grade)
 	return userReview
 }
