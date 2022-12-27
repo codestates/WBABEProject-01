@@ -60,7 +60,7 @@ go run main.go
 insertMenu - 피주문자
 ( 파라미터 : 매뉴이름, 가격, 수량, 원산지, 맵기, 주문가능여부, 며뉴판 표시 여부 )
 
-![Untitled](https://user-images.githubusercontent.com/71590785/209467971-549731f6-8bd0-4d1a-baf6-0fb0e800dc43.png)
+![image](https://user-images.githubusercontent.com/71590785/209692027-e091aa03-da4a-464e-9e4b-74026a35302f.png)
 
 해당 메뉴 정보를 가지고 DB에 메뉴 정보를 등록한다
 
@@ -73,9 +73,14 @@ updateMenu - 피주문자
 
 ( 파라미터 : 메뉴이름, 가격, 수량, 원산지, 맵기, 주문가능여부, 메뉴판 표시 여부 ) 
 
+![image](https://user-images.githubusercontent.com/71590785/209692215-bd32680d-5483-4fe6-b883-ab890cf716c9.png)
+
 해당 메뉴정보를 가진 메뉴를 DB에서 찾고 메뉴 정보를 변경한다
 
-![Untitled 1](https://user-images.githubusercontent.com/71590785/209468018-2517162f-c051-4dce-8b17-9884413f0022.png)
+결과
+  
+![image](https://user-images.githubusercontent.com/71590785/209692264-d81b897f-2bed-486c-9544-6cd92acb060c.png)
+
 
 deleteMenu - 피주문자
 
@@ -83,7 +88,12 @@ deleteMenu - 피주문자
 
 해당 메뉴이름을 메뉴DB에서 지운다 ( 뷰 플래그를 활용해 isVisible 값을 false로 변경 )
 
-![Untitled 2](https://user-images.githubusercontent.com/71590785/209468033-7f496c8d-9c9e-49ae-9519-f7729802b962.png)
+![image](https://user-images.githubusercontent.com/71590785/209692501-7e5144f4-ab81-41e1-807c-9be4e6f9d647.png)
+
+결과
+
+![image](https://user-images.githubusercontent.com/71590785/209692605-772b8b4b-f9a4-46c5-84b8-0504d814af79.png)
+
 
 getMenu - 주문자
 
@@ -91,7 +101,12 @@ getMenu - 주문자
 
 메뉴DB에 들어 있는 모든 메뉴 정보를 조회한다
 
-![Untitled 3](https://user-images.githubusercontent.com/71590785/209468037-f254aa77-9011-4c70-8430-d557301bcfc8.png)
+![image](https://user-images.githubusercontent.com/71590785/209692696-a8c85d9f-7b98-4803-9ad7-bdb5403a8532.png)
+
+결과
+
+![image](https://user-images.githubusercontent.com/71590785/209692777-6bce7615-569c-4a93-bcd1-03c14b392948.png)
+
 
 sortMenu - 주문자
 
@@ -99,7 +114,12 @@ sortMenu - 주문자
 
 메뉴 정보에 들어 있는 메뉴들을 평점 순으로 정렬해 조회한다.
 
-![Untitled 4](https://user-images.githubusercontent.com/71590785/209468046-eff735e1-34e2-40bb-a818-a6ff7f753855.png)
+![image](https://user-images.githubusercontent.com/71590785/209692930-cda8da5f-d9f1-4d1d-91da-6e3a25cdc4a0.png)
+
+결과 ( 만약 리뷰 와 평점이 없는 경우 0으로 가정한다 )
+
+![image](https://user-images.githubusercontent.com/71590785/209694788-98f41551-c060-4e09-b13c-d66c9bda9e2d.png)
+
 
 Order
 
@@ -109,15 +129,25 @@ insertOrder - 주문자
 
 해당 유저 정보와 메뉴 정보를 가지고 주문DB에 주문을 추가한다
 
-![Untitled 5](https://user-images.githubusercontent.com/71590785/209468049-6be73e8c-2f02-4972-9200-a23c5bf028ac.png)
+![image](https://user-images.githubusercontent.com/71590785/209695037-ed25948b-62d4-457f-aacc-d8b614e664f9.png)
+
+결과
+
+![image](https://user-images.githubusercontent.com/71590785/209695185-4a996a37-3841-40d0-a976-b6677b24277b.png)
+
 
 updateOrderState - 피주문자
 
 ( 파라미터 : 주문 시간, 주문 번호, 주문 상태 )
 
-주문 시간과 주문 번호(Unique value)에 해당하는 주문을 찾고 주문 상태를 변경한다
+주문 시간과 주문 번호(Unique value)에 해당하는 주문을 찾고 주문 상태를 변경한다 ( 0: 주문 취소, 1: 접수 중, 2: 요리 중, 3: 배달 중, 4: 배달완료 )
 
-![Untitled 6](https://user-images.githubusercontent.com/71590785/209468057-c379203a-97ec-4d7e-adcd-746aba34cfc3.png)
+![image](https://user-images.githubusercontent.com/71590785/209695292-96e46c43-dd7d-461b-9a13-dc5b281cea7d.png)
+
+결과
+
+![image](https://user-images.githubusercontent.com/71590785/209695395-32af87e1-9208-4bde-aaaa-b9998ac3855f.png)
+
 
 addOrderMenu - 주문자
 
@@ -125,7 +155,17 @@ addOrderMenu - 주문자
 
 해당 유저의 주문이 아직 배달 직전이라면 주문에 해당 주문 메뉴를 추가하고 배달 이후라면 새로운 주문을 만든다
 
-![Untitled 7](https://user-images.githubusercontent.com/71590785/209468061-ed2b2eff-11db-4abf-8e6f-1ea2b538588f.png)
+![image](https://user-images.githubusercontent.com/71590785/209695544-9b0b0558-a603-4dd0-9a9b-d8e63744bdbe.png)
+
+결과
+
+![image](https://user-images.githubusercontent.com/71590785/209695999-c09ffb6f-137a-4290-bd8e-e29fffbb4a91.png)
+( 기존 주문이 배달 중(state 3)이므로 새로운 주문으로 추가된 모습 )
+
+![image](https://user-images.githubusercontent.com/71590785/209696413-31093da0-9672-47fe-aba8-da73734d5792.png)
+
+
+
 
 getOrderByUser - 주문자
 
