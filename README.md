@@ -57,9 +57,17 @@ go run main.go
 
 ### API 테스트
 
-해당 메뉴 정보를 가지고 DB에 메뉴 정보를 등록한다
+insertMenu - 피주문자
+( 파라미터 : 매뉴이름, 가격, 수량, 원산지, 맵기, 주문가능여부, 며뉴판 표시 여부 )
 
 ![Untitled](https://user-images.githubusercontent.com/71590785/209467971-549731f6-8bd0-4d1a-baf6-0fb0e800dc43.png)
+
+해당 메뉴 정보를 가지고 DB에 메뉴 정보를 등록한다
+
+결과
+
+![image](https://user-images.githubusercontent.com/71590785/209691834-07e23d14-52c8-415b-b913-0652ab290c65.png)
+
 
 updateMenu - 피주문자
 
