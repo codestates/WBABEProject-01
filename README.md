@@ -155,16 +155,16 @@ addOrderMenu - 주문자
 
 해당 유저의 주문이 아직 배달 직전이라면 주문에 해당 주문 메뉴를 추가하고 배달 이후라면 새로운 주문을 만든다
 
-![image](https://user-images.githubusercontent.com/71590785/209695544-9b0b0558-a603-4dd0-9a9b-d8e63744bdbe.png)
+![image](https://user-images.githubusercontent.com/71590785/209703158-3e77d261-846a-4075-9e2f-707bc9fe977f.png)
 
 결과
 
-![image](https://user-images.githubusercontent.com/71590785/209695999-c09ffb6f-137a-4290-bd8e-e29fffbb4a91.png)
+![image](https://user-images.githubusercontent.com/71590785/209703366-cfa48cea-f58b-4bfe-bc5a-617cc7c75b2e.png)
 ( 기존 주문이 배달 중(state 3)이므로 새로운 주문으로 추가된 모습 )
 
-![image](https://user-images.githubusercontent.com/71590785/209696413-31093da0-9672-47fe-aba8-da73734d5792.png)
-
-
+  ![image](https://user-images.githubusercontent.com/71590785/209703442-7b87d79b-fe9c-4093-b5ce-be5b7238670e.png)
+  ![image](https://user-images.githubusercontent.com/71590785/209703512-583176d3-c056-433d-8ae5-b17bbd6a6340.png)
+  기존 주문이 아직 1 (접수 중) 상태이므로 기존 주문에 새로운 메뉴를 추가한다
 
 
 getOrderByUser - 주문자
@@ -173,9 +173,27 @@ getOrderByUser - 주문자
 
 해당 유저의 모든 주문 내역을 조회한다
 
-![Untitled 8](https://user-images.githubusercontent.com/71590785/209468072-df2abada-a3f6-4f7a-a4cc-c97e5ebd3274.png)
+![image](https://user-images.githubusercontent.com/71590785/209703673-1817266b-49ec-421f-a1b4-1f3123b3fb5e.png)
+
+결과
+
+![image](https://user-images.githubusercontent.com/71590785/209705279-a524308a-bbac-40bd-af64-fe3a504d3310.png)
+
 
 Review
+
+writeReview - 주문자
+
+( 파라미터 : 메뉴 이름, 주문 번호 및 시간, 리뷰 내용, 유저 주소 및 핸드폰 번호 )
+
+해당 유저 주문한 주문들 중 특정 주문의 메뉴 내용에 관해서 평점과 리뷰 내용을 작성한다
+
+![image](https://user-images.githubusercontent.com/71590785/209705457-ead812ab-928b-450d-9241-79ff90131a98.png)
+
+결과
+
+![image](https://user-images.githubusercontent.com/71590785/209705508-d88bff50-e2e6-4f8a-bec0-6a923f34bfa5.png)
+
 
 getReview - 주문자
 
@@ -183,15 +201,13 @@ getReview - 주문자
 
 해당 메뉴의 모든 리뷰와 평균 평점을 조회한다.
 
-![Untitled 9](https://user-images.githubusercontent.com/71590785/209468078-5e40c915-573b-4302-ad4d-7a6fb3d05307.png)
+![image](https://user-images.githubusercontent.com/71590785/209705637-f7fb8a0d-46ef-4297-8a58-59c9945f76f1.png)
 
-writeReview
+결과
 
-( 파라미터 : 메뉴 이름, 주문 번호 및 시간, 리뷰 내용, 유저 주소 및 핸드폰 번호 )
+![image](https://user-images.githubusercontent.com/71590785/209705839-52eccbd8-643f-4f25-bba7-69f77d1fee20.png)
 
-해당 유저 주문한 주문들 중 특정 주문의 메뉴 내용에 관해서 평점과 리뷰 내용을 작성한다
 
-![Untitled 10](https://user-images.githubusercontent.com/71590785/209468085-59f737d4-2fea-4ab9-92d3-6684577085c1.png)
 
 # DB 설계
 
