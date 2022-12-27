@@ -55,6 +55,11 @@ go run main.go
  /review/writeReview  -> 메뉴별 리뷰 작성
 ```
 
+### Swagger
+
+![image](https://user-images.githubusercontent.com/71590785/209706178-2c72cea1-0124-430c-9c03-23e8854ca905.png)
+
+
 ### API 테스트
 
 insertMenu - 피주문자
