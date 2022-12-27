@@ -82,10 +82,11 @@ func (p *Controller) UpdateOrderState(c *gin.Context) {
 // @Router /order/getOrderByUser [get]
 // @Success 200 {object} Controller
 func (p *Controller) GetOrderByUser(c *gin.Context) {
-	var form model.User
-	if err := c.ShouldBind(&form); err != nil {
-		c.AbortWithError(http.StatusBadRequest, err)
-		return
+	pnum := c.Query("pnum")
+	addr := c.Query("address")
+	var form = model.User{
+		Pnum:    pnum,
+		Address: addr,
 	}
 	c.JSON(200, p.md.GetOrderByUser(form))
 	//To do : 최신순 정렬

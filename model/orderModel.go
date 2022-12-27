@@ -80,20 +80,18 @@ func (p *Model) UpdateOrderState(order Order) bool {
 }
 
 func (p *Model) GetOrderByUser(user User) []Order {
-	filter := User{
-		Pnum:    user.Pnum,
-		Address: user.Address,
-	}
+	filter := user
+	fmt.Println(filter.Pnum)
 	cursor, err := p.colOrder.Find(context.TODO(), filter.UserMap())
 	if err != nil {
 		return nil
 	}
-	defer cursor.Close(context.TODO())
 
 	var orders []Order
 	if err = cursor.All(context.TODO(), &orders); err != nil {
 		return nil
 	}
+	fmt.Println(&orders)
 	return orders
 }
 
@@ -119,7 +117,7 @@ func (p *Model) AddOrderMenu(order Order) bool {
 	time := strconv.Itoa(t.Year()) + "-" + strconv.Itoa(int(t.Month())) + "-" + strconv.Itoa(t.Day())
 	number := p.GetOrderByTime(time) + 1
 	p.InsertOrder(Order{
-		MenuInfo: []MenuInfo{},
+		MenuInfo: order.MenuInfo,
 		User:     order.User,
 		State:    1,
 		Time:     time,
