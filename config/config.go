@@ -38,5 +38,6 @@ func GetConfig(fpath string) *Config {
 			return c
 		}
 	}
+	// 아래의 코드는 필요하지 않은 코드가 될 것 같습니다
 	return nil
 }

@@ -58,6 +58,7 @@ func main() {
 			logger.Error("Server Shutdown:", err)
 		}
 
+		// case가 하나인 select는 더 깔끔하게 변경할 수 있을 것 같습니다.
 		select {
 		case <-ctx.Done():
 			logger.Info("timeout of 1 seconds.")
