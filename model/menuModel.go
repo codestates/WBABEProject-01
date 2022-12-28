@@ -130,6 +130,9 @@ func (p *Model) SortMenu() []interface{} {
 		array = append(array, []interface{}{p.GetReviewWithMenu(menu.Name).Grade, menu.Name})
 	}
 	sort.Slice(array, func(i, j int) bool {
+		//Grade의 type이 int64이므로 type assertion을 통해 값에 접근할 때는
+		//int가 아닌 int64로 변경해주어야 합니다. 
+		//그렇지 않으면 firstElementI와 firstElementJ는 int의 zero value가 출력됩니다.
 		firstElementI, _ := array[i].([]interface{})[0].(int)
 		firstElementJ, _ := array[j].([]interface{})[0].(int)
 		return firstElementI > firstElementJ
