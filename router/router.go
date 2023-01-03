@@ -73,6 +73,7 @@ func (p *Router) Idx() *gin.Engine {
 
 	menu := e.Group("/menu", liteAuth())
 	{
+		// 로그를 출력할 때 Logger를 사용해보는 것은 어떨까요? 
 		fmt.Println("1")
 		menu.GET("/getMenu", p.ct.GetMenu)
 		menu.POST("/insertMenu", p.ct.InsertMenu)
