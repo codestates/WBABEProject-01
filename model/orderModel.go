@@ -99,6 +99,8 @@ func (p *Model) AddOrderMenu(order Order) bool {
 	orders := p.GetOrderByUser(order.User)
 	for _, value := range orders {
 		fmt.Println("state : ", value.State)
+		//1 또는 2의 상태여야 Order가 추가로 가능한 것 같네요.
+		//주문 상태를 더 쉽게 알아보기 위해 개선할 수 있을까요?
 		if value.State == 1 || value.State == 2 {
 			filter := bson.D{{"time", value.Time}, {"number", value.Number}}
 			field := bson.M{
@@ -116,6 +118,7 @@ func (p *Model) AddOrderMenu(order Order) bool {
 	t := time.Now()
 	time := strconv.Itoa(t.Year()) + "-" + strconv.Itoa(int(t.Month())) + "-" + strconv.Itoa(t.Day())
 	number := p.GetOrderByTime(time) + 1
+	//1, 2가 아닌 주문 상태에서는 새 주문으로 받는 것 같은데, menu 정보가 들어가지 않을 것 같습니다.
 	p.InsertOrder(Order{
 		MenuInfo: order.MenuInfo,
 		User:     order.User,
