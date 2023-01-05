@@ -9,6 +9,14 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
+const (
+	Ordered          string = "ordered"
+	OrderRejected    string = "orderRejected"
+	Cooking          string = "cooking"
+	Delivering       string = "delivering"
+	DeliverCompleted string = "deliverCompleted"
+)
+
 type MenuInfo struct {
 	Name     string `bson: "name"`
 	Quantity int64  `bson: "quantity"`
@@ -23,7 +31,7 @@ type User struct {
 type Order struct {
 	MenuInfo []MenuInfo `bson: "menuinfo"`
 	User     User       `bson:	"user"`
-	State    int64      `bson: "state"`
+	State    string     `bson: "state"`
 	Time     string     `bson: "time"`
 	Number   int64      `bson: "number"`
 }
@@ -101,7 +109,7 @@ func (p *Model) AddOrderMenu(order Order) bool {
 		fmt.Println("state : ", value.State)
 		//1 또는 2의 상태여야 Order가 추가로 가능한 것 같네요.
 		//주문 상태를 더 쉽게 알아보기 위해 개선할 수 있을까요?
-		if value.State == 1 || value.State == 2 {
+		if value.State == Ordered || value.State == Cooking {
 			filter := bson.D{{"time", value.Time}, {"number", value.Number}}
 			field := bson.M{
 				"$set": bson.M{
