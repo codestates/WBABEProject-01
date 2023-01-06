@@ -91,7 +91,9 @@ recommendMenu - 피주문자
 
 (파라미터 : 메뉴이름, 추천 여부 )
 
+![image](https://user-images.githubusercontent.com/71590785/211034076-ea532a08-3318-4af1-a8c7-cf962e769025.png)
 
+해당 메뉴이름을 가진 메뉴의 추천여부를 변경한다
 
 결과
 
