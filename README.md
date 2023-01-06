@@ -87,6 +87,17 @@ updateMenu - 피주문자
 ![image](https://user-images.githubusercontent.com/71590785/209692264-d81b897f-2bed-486c-9544-6cd92acb060c.png)
 
 
+recommendMenu - 피주문자
+
+(파라미터 : 메뉴이름, 추천 여부 )
+
+
+
+결과
+
+![image](https://user-images.githubusercontent.com/71590785/211033678-02402dab-ebd6-4044-a955-3bf2a99b3cb1.png)
+
+
 deleteMenu - 피주문자
 
 ( 파라미터 : 메뉴이름 )
