@@ -23,7 +23,7 @@ type InputGrade struct {
 // @Accept  json
 // @Produce  json
 // @Param review body InputGrade true "InputGrade"
-// @Router /review/writeReview [put]
+// @Router /review/reviewer [put]
 // @Success 200 {object} Controller
 func (p *Controller) UpdateMenuGrade(c *gin.Context) {
 	var form model.Review
@@ -41,7 +41,7 @@ func (p *Controller) UpdateMenuGrade(c *gin.Context) {
 // @Accept  json
 // @Produce  json
 // @Param menuname query string true "menuName"
-// @Router /review/getReview [get]
+// @Router /review/reviewer [get]
 // @Success 200 {object} Controller
 func (p *Controller) GetReviewWithMenu(c *gin.Context) {
 	form := c.Query("menuname")

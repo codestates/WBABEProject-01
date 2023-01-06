@@ -33,7 +33,7 @@ func NewCTL(rep *model.Model) (*Controller, error) {
 // @Accept  json
 // @Produce  json
 // @Param menu body MenuInput true "menuInput"
-// @Router /menu/insertMenu [post]
+// @Router /menu/ [post]
 // @Success 200 {object} Controller
 func (p *Controller) InsertMenu(c *gin.Context) {
 	var form model.Menu
@@ -51,7 +51,7 @@ func (p *Controller) InsertMenu(c *gin.Context) {
 // @Accept  json
 // @Produce  json
 // @Param menuName body string true "menuName"
-// @Router /menu/deleteMenu [delete]
+// @Router /menu/ [delete]
 // @Success 200 {object} Controller
 func (p *Controller) DeleteMenu(c *gin.Context) {
 	var form string
@@ -69,7 +69,7 @@ func (p *Controller) DeleteMenu(c *gin.Context) {
 // @Accept  json
 // @Produce  json
 // @Param menu body MenuInput true "menuInput"
-// @Router /menu/updateMenu [put]
+// @Router /menu/ [put]
 // @Success 200 {object} Controller
 func (p *Controller) UpdateMenu(c *gin.Context) {
 	var form model.Menu
@@ -86,7 +86,7 @@ func (p *Controller) UpdateMenu(c *gin.Context) {
 // @name GetMenu
 // @Accept  json
 // @Produce  json
-// @Router /menu/getMenu [get]
+// @Router /menu/ [get]
 // @Success 200 {object} Controller
 func (p *Controller) GetMenu(c *gin.Context) {
 	c.JSON(200, p.md.GetMenu())
@@ -98,7 +98,7 @@ func (p *Controller) GetMenu(c *gin.Context) {
 // @name SortMenu
 // @Accept  json
 // @Produce  json
-// @Router /menu/sortMenu [get]
+// @Router /menu/grade [get]
 // @Success 200 {object} Controller
 func (p *Controller) SortMenu(c *gin.Context) {
 	c.JSON(200, p.md.SortMenu())

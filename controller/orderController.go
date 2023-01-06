@@ -26,7 +26,7 @@ type InputOrder struct {
 type InputOrderState struct {
 	Time   string `bson: "time"`
 	Number int64  `bson:"number"`
-	State  int64  `bson: "state"`
+	State  string `bson: "state"`
 }
 
 // InsertOrder godoc
@@ -36,7 +36,7 @@ type InputOrderState struct {
 // @Accept  json
 // @Produce  json
 // @Param order body InputOrder true "InputOrder"
-// @Router /order/insertOrder [post]
+// @Router /order/ [post]
 // @Success 200 {object} Controller
 func (p *Controller) InsertOrder(c *gin.Context) {
 	var form model.Order
@@ -44,7 +44,7 @@ func (p *Controller) InsertOrder(c *gin.Context) {
 	t := time.Now()
 	time := strconv.Itoa(t.Year()) + "-" + strconv.Itoa(int(t.Month())) + "-" + strconv.Itoa(t.Day())
 	number := p.md.GetOrderByTime(time) + 1
-	form.State = 1
+	form.State = "ordered"
 	form.Time = time
 	form.Number = number
 	if err := c.ShouldBind(&form); err != nil {
@@ -61,7 +61,7 @@ func (p *Controller) InsertOrder(c *gin.Context) {
 // @Accept  json
 // @Produce  json
 // @Param orderstate body InputOrderState true "InputOrderState"
-// @Router /order/updateOrderState [put]
+// @Router /order/state [put]
 // @Success 200 {object} Controller
 func (p *Controller) UpdateOrderState(c *gin.Context) {
 	var form model.Order
@@ -78,8 +78,9 @@ func (p *Controller) UpdateOrderState(c *gin.Context) {
 // @name GetOrderByUser
 // @Accept  json
 // @Produce  json
-// @Param user query InputUser true "InputUser"
-// @Router /order/getOrderByUser [get]
+// @Param address query string true "Address"
+// @Param pnum query string true "Pnum"
+// @Router /order/ [get]
 // @Success 200 {object} Controller
 func (p *Controller) GetOrderByUser(c *gin.Context) {
 	pnum := c.Query("pnum")
@@ -99,7 +100,7 @@ func (p *Controller) GetOrderByUser(c *gin.Context) {
 // @Accept  json
 // @Produce  json
 // @Param user body InputOrder true "InputOrder"
-// @Router /order/addOrderMenu [put]
+// @Router /order/ [put]
 // @Success 200 {object} Controller
 func (p *Controller) AddOrderMenu(c *gin.Context) {
 	var form model.Order

@@ -73,25 +73,23 @@ func (p *Router) Idx() *gin.Engine {
 
 	menu := e.Group("/menu", liteAuth())
 	{
-		fmt.Println("1")
-		menu.GET("/getMenu", p.ct.GetMenu)
-		menu.POST("/insertMenu", p.ct.InsertMenu)
-		menu.DELETE("/deleteMenu", p.ct.DeleteMenu)
-		menu.PUT("/updateMenu", p.ct.UpdateMenu)
-		menu.GET("/sortMenu", p.ct.SortMenu)
+		menu.GET("/", p.ct.GetMenu)
+		menu.POST("/", p.ct.InsertMenu)
+		menu.DELETE("/", p.ct.DeleteMenu)
+		menu.PUT("/", p.ct.UpdateMenu)
+		menu.GET("/grade", p.ct.SortMenu)
 	}
 	order := e.Group("/order", liteAuth())
 	{
-		fmt.Println("2")
-		order.POST("/insertOrder", p.ct.InsertOrder)
-		order.GET("/getOrderByUser", p.ct.GetOrderByUser)
-		order.PUT("/addOrderMenu", p.ct.AddOrderMenu)
-		order.PUT("/updateOrderState", p.ct.UpdateOrderState)
+		order.POST("/", p.ct.InsertOrder)
+		order.GET("/user", p.ct.GetOrderByUser)
+		order.PUT("/", p.ct.AddOrderMenu)
+		order.PUT("/state", p.ct.UpdateOrderState)
 	}
 	review := e.Group("/review", liteAuth())
 	{
-		review.PUT("/writeReview", p.ct.UpdateMenuGrade)
-		review.GET("/getReview", p.ct.GetReviewWithMenu)
+		review.PUT("/reviewer", p.ct.UpdateMenuGrade)
+		review.GET("/reviewer", p.ct.GetReviewWithMenu)
 	}
 	return e
 }
