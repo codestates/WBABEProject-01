@@ -2,7 +2,6 @@ package model
 
 import (
 	"context"
-	"fmt"
 
 	"go.mongodb.org/mongo-driver/bson"
 )
@@ -80,6 +79,5 @@ func (p *Model) GetReviewWithMenu(menuName string) userReview {
 		userReview = userReview
 		return userReview
 	}
-	fmt.Println(userReview.Grade)
 	return userReview
 }

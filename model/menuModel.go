@@ -2,7 +2,6 @@ package model
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"lecture/go-final/config"
 	"sort"
@@ -26,6 +25,7 @@ type Menu struct {
 	Origin    string `bson:"origin"`
 	Spicy     int64  `bson:"spicy"`
 	IsVisible bool   `bson:"isvisible"`
+	Recommend bool   `bson:"recommend"`
 }
 
 func NewModel(config *config.Config) (*Model, error) {
@@ -56,12 +56,12 @@ func (p *Model) InsertMenu(menu Menu) Menu {
 		Origin:    menu.Origin,
 		Spicy:     menu.Spicy,
 		IsVisible: true,
+		Recommend: false,
 	}
 	_, err := p.colMenu.InsertOne(context.TODO(), newData)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("Menu inserted with Name: %s\n", newData.Name)
 	return newData
 }
 
@@ -70,6 +70,20 @@ func (p *Model) DeleteMenu(menuName string) int64 {
 	field := bson.M{
 		"$set": bson.M{
 			"isvisible": false,
+		},
+	}
+	cursor, err := p.colMenu.UpdateOne(context.TODO(), filter, field)
+	if err != nil {
+		panic(err)
+	}
+	return cursor.MatchedCount
+}
+
+func (p *Model) RecommendMenu(name string, recommend bool) int64 {
+	filter := bson.D{{Key: "name", Value: name}}
+	field := bson.M{
+		"$set": bson.M{
+			"recommend": recommend,
 		},
 	}
 	cursor, err := p.colMenu.UpdateOne(context.TODO(), filter, field)
@@ -110,15 +124,6 @@ func (p *Model) GetMenu() []Menu {
 
 	if err = cursor.All(context.TODO(), &menus); err != nil {
 		panic(err)
-	}
-
-	for _, result := range menus {
-		cursor.Decode(&result)
-		output, err := json.MarshalIndent(result, "", "    ")
-		if err != nil {
-			panic(err)
-		}
-		fmt.Printf("%s\n", output)
 	}
 	return menus
 }

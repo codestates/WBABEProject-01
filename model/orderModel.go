@@ -2,7 +2,6 @@ package model
 
 import (
 	"context"
-	"fmt"
 	"strconv"
 	"time"
 
@@ -39,8 +38,8 @@ type Order struct {
 func (u User) UserMap() bson.M {
 	return bson.M{
 		"user": bson.M{
-			"pnum":    u.Pnum,
 			"address": u.Address,
+			"pnum":    u.Pnum,
 		},
 	}
 }
@@ -57,7 +56,6 @@ func (p *Model) InsertOrder(order Order) string {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("Order inserted with Name: %s\n", newData.MenuInfo)
 	return "Order Index : " + order.Time + strconv.Itoa(int(order.Number))
 }
 
@@ -88,9 +86,8 @@ func (p *Model) UpdateOrderState(order Order) bool {
 }
 
 func (p *Model) GetOrderByUser(user User) []Order {
-	filter := user
-	fmt.Println(filter.Pnum)
-	cursor, err := p.colOrder.Find(context.TODO(), filter.UserMap())
+	filter := user.UserMap()
+	cursor, err := p.colOrder.Find(context.TODO(), filter)
 	if err != nil {
 		return nil
 	}
@@ -99,14 +96,12 @@ func (p *Model) GetOrderByUser(user User) []Order {
 	if err = cursor.All(context.TODO(), &orders); err != nil {
 		return nil
 	}
-	fmt.Println(&orders)
 	return orders
 }
 
 func (p *Model) AddOrderMenu(order Order) bool {
 	orders := p.GetOrderByUser(order.User)
 	for _, value := range orders {
-		fmt.Println("state : ", value.State)
 		//1 또는 2의 상태여야 Order가 추가로 가능한 것 같네요.
 		//주문 상태를 더 쉽게 알아보기 위해 개선할 수 있을까요?
 		if value.State == Ordered || value.State == Cooking {
@@ -130,7 +125,7 @@ func (p *Model) AddOrderMenu(order Order) bool {
 	p.InsertOrder(Order{
 		MenuInfo: order.MenuInfo,
 		User:     order.User,
-		State:    1,
+		State:    Ordered,
 		Time:     time,
 		Number:   number,
 	})

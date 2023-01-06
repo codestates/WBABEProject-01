@@ -78,6 +78,7 @@ func (p *Router) Idx() *gin.Engine {
 		menu.DELETE("/", p.ct.DeleteMenu)
 		menu.PUT("/", p.ct.UpdateMenu)
 		menu.GET("/grade", p.ct.SortMenu)
+		menu.PUT("/admin", p.ct.RecommendMenu)
 	}
 	order := e.Group("/order", liteAuth())
 	{

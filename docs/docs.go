@@ -16,7 +16,81 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/menu/deleteMenu": {
+        "/menu/": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "call GetMenu, return ok by json.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Controller"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "call UpdateMenu, return ok by json.",
+                "parameters": [
+                    {
+                        "description": "menuInput",
+                        "name": "menu",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.MenuInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Controller"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "DB에 menu 추가 []",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "call InsertMenu, return ok by json.",
+                "parameters": [
+                    {
+                        "description": "menuInput",
+                        "name": "menu",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.MenuInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Controller"
+                        }
+                    }
+                }
+            },
             "delete": {
                 "description": "DB에 menu 추가",
                 "consumes": [
@@ -47,44 +121,29 @@ const docTemplate = `{
                 }
             }
         },
-        "/menu/getMenu": {
-            "get": {
+        "/menu/admin": {
+            "put": {
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
                     "application/json"
                 ],
-                "summary": "call GetMenu, return ok by json.",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/controller.Controller"
-                        }
-                    }
-                }
-            }
-        },
-        "/menu/insertMenu": {
-            "post": {
-                "description": "DB에 menu 추가 []",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "call InsertMenu, return ok by json.",
+                "summary": "call RecommendMenu, return ok by json.",
                 "parameters": [
                     {
-                        "description": "menuInput",
-                        "name": "menu",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/controller.MenuInput"
-                        }
+                        "type": "string",
+                        "description": "name",
+                        "name": "name",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "recommend",
+                        "name": "recommend",
+                        "in": "query",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -97,7 +156,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/menu/sortMenu": {
+        "/menu/grade": {
             "get": {
                 "consumes": [
                     "application/json"
@@ -116,24 +175,30 @@ const docTemplate = `{
                 }
             }
         },
-        "/menu/updateMenu": {
-            "put": {
+        "/order/": {
+            "get": {
+                "description": "유저별 주문 내역 조회",
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
                     "application/json"
                 ],
-                "summary": "call UpdateMenu, return ok by json.",
+                "summary": "call GetOrderByUser, return ok by json.",
                 "parameters": [
                     {
-                        "description": "menuInput",
-                        "name": "menu",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/controller.MenuInput"
-                        }
+                        "type": "string",
+                        "description": "Address",
+                        "name": "address",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Pnum",
+                        "name": "pnum",
+                        "in": "query",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -144,9 +209,7 @@ const docTemplate = `{
                         }
                     }
                 }
-            }
-        },
-        "/order/addOrderMenu": {
+            },
             "put": {
                 "description": "유저 추가 주문",
                 "consumes": [
@@ -175,41 +238,7 @@ const docTemplate = `{
                         }
                     }
                 }
-            }
-        },
-        "/order/getOrderByUser": {
-            "get": {
-                "description": "유저별 주문 내역 조회",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "call GetOrderByUser, return ok by json.",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "name": "address",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "pnum",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/controller.Controller"
-                        }
-                    }
-                }
-            }
-        },
-        "/order/insertOrder": {
+            },
             "post": {
                 "description": "DB에 주문 추가",
                 "consumes": [
@@ -240,7 +269,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/order/updateOrderState": {
+        "/order/state": {
             "put": {
                 "description": "주문 상태를 변경",
                 "consumes": [
@@ -271,7 +300,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/review/getReview": {
+        "/review/reviewer": {
             "get": {
                 "description": "해당 메뉴의 평균 평점과 리뷰를 조회",
                 "consumes": [
@@ -298,9 +327,7 @@ const docTemplate = `{
                         }
                     }
                 }
-            }
-        },
-        "/review/writeReview": {
+            },
             "put": {
                 "description": "메뉴의 평점 및 리뷰를 남김",
                 "consumes": [
@@ -380,7 +407,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "state": {
-                    "type": "integer"
+                    "type": "string"
                 },
                 "time": {
                     "type": "string"
@@ -429,6 +456,9 @@ const docTemplate = `{
                 },
                 "quantity": {
                     "type": "integer"
+                },
+                "recommend": {
+                    "type": "boolean"
                 },
                 "spicy": {
                     "type": "integer"
